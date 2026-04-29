@@ -3,96 +3,221 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ubo | Evidence-Based Wellness</title>
+  <meta name="description" content="Ubo is an evidence-based wellness chatbot that turns trusted research into personalized routines." />
+  <title>Ubo | Evidence-Based Wellness AI</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    .lift { box-shadow: 0 7px 0 rgba(40,48,52,.12); }
-    .soft { box-shadow: 0 24px 80px rgba(40,48,52,.12); }
-    .ubo-shape { width: 300px; height: 250px; border-radius: 48% 52% 46% 54%; background: linear-gradient(145deg,#ffb24d,#f37021); position: relative; box-shadow: inset -18px -18px 0 rgba(197,78,17,.18), 0 30px 80px rgba(243,112,33,.25); }
-    .ubo-shape:before { content:""; position:absolute; top:-34px; left:118px; width:70px; height:44px; background:#3dbb4f; border-radius:70% 30% 70% 30%; transform: rotate(-12deg); }
-    .eye { position:absolute; top:102px; width:26px; height:38px; background:#075c68; border-radius:999px; }
-    .eye.left { left:98px; }
-    .eye.right { right:98px; }
-    .smile { position:absolute; left:122px; top:158px; width:58px; height:28px; border-bottom:7px solid #075c68; border-radius:0 0 80px 80px; }
+    .lift { box-shadow: 0 8px 0 rgba(40,48,52,.12); }
+    .lift-teal { box-shadow: 0 8px 0 #238e89; }
+    .lift-orange { box-shadow: 0 8px 0 #d86a25; }
+    .soft-glow { box-shadow: 0 30px 90px rgba(243,112,33,.22); }
+    .card-hover { transition: transform .2s ease, box-shadow .2s ease; }
+    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 13px 0 rgba(40,48,52,.10); }
+    .ubo-shape { width: min(330px, 74vw); height: 275px; border-radius: 48% 52% 46% 54%; background: linear-gradient(145deg,#ffbd63,#f37021); position: relative; box-shadow: inset -20px -20px 0 rgba(197,78,17,.18), 0 34px 90px rgba(243,112,33,.28); }
+    .ubo-shape:before { content:""; position:absolute; top:-36px; left:42%; width:78px; height:48px; background:#39b54a; border-radius:75% 25% 70% 30%; transform: rotate(-14deg); box-shadow: inset -8px -8px 0 rgba(0,0,0,.09); }
+    .eye { position:absolute; top:112px; width:28px; height:42px; background:#075c68; border-radius:999px; }
+    .eye.left { left:33%; }
+    .eye.right { right:33%; }
+    .smile { position:absolute; left:50%; transform: translateX(-50%); top:174px; width:66px; height:30px; border-bottom:8px solid #075c68; border-radius:0 0 90px 90px; }
+    .icon-card svg { width: 50px; height: 50px; }
+    .mini-icon svg { width: 36px; height: 36px; }
+    .check::before { content: ""; display:inline-block; width: 10px; height: 18px; border: solid currentColor; border-width: 0 3px 3px 0; transform: rotate(45deg); margin-right: 14px; }
+    .xmark::before { content: ""; display:inline-block; width: 18px; height: 18px; margin-right: 14px; background: linear-gradient(45deg, transparent 44%, currentColor 45%, currentColor 55%, transparent 56%), linear-gradient(-45deg, transparent 44%, currentColor 45%, currentColor 55%, transparent 56%); vertical-align: -3px; }
   </style>
 </head>
-<body class="bg-[#f8eedc] text-[#283034]">
-  <header class="max-w-7xl mx-auto px-6 md:px-8 py-7 flex items-center justify-between">
-    <a href="#" class="flex items-center gap-3">
-      <div class="w-12 h-12 rounded-2xl bg-orange-400 lift flex items-center justify-center"><div class="w-6 h-6 rounded-full bg-white"></div></div>
-      <div><div class="text-4xl font-black text-orange-400 leading-none">ubo</div><div class="text-xs font-black text-[#32bdb5] tracking-widest">WELLNESS AI</div></div>
-    </a>
-    <nav class="hidden md:flex items-center gap-10 text-sm font-black tracking-wide text-gray-600">
-      <a href="#science" class="hover:text-[#32bdb5]">THE SCIENCE</a>
-      <a href="#features" class="hover:text-[#32bdb5]">FEATURES</a>
-      <a href="#pricing" class="hover:text-[#32bdb5]">PRICING</a>
-      <a href="#pricing" class="bg-[#32bdb5] text-white rounded-full px-7 py-3 lift">APP STORE</a>
-    </nav>
+<body class="bg-[#f8eedc] text-[#273034]">
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#f8eedc]/85 border-b border-white/50">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 py-5 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3" aria-label="Ubo home">
+        <div class="w-12 h-12 rounded-2xl bg-orange-400 lift flex items-center justify-center">
+          <div class="w-6 h-6 rounded-full bg-white"></div>
+        </div>
+        <div>
+          <div class="text-4xl font-black text-orange-400 leading-none tracking-tight">ubo</div>
+          <div class="text-[11px] font-black text-[#32bdb5] tracking-[.26em]">WELLNESS AI</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-10 text-sm font-black tracking-wide text-gray-600">
+        <a href="#science" class="hover:text-[#32bdb5]">THE SCIENCE</a>
+        <a href="#features" class="hover:text-[#32bdb5]">FEATURES</a>
+        <a href="#market" class="hover:text-[#32bdb5]">MARKET</a>
+        <a href="#pricing" class="hover:text-[#32bdb5]">PRICING</a>
+        <a href="#pricing" class="bg-[#32bdb5] text-white rounded-full px-7 py-3 lift-teal">JOIN WAITLIST</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 px-6 md:px-8 py-16 md:py-24 items-center">
-      <div>
-        <p class="inline-flex rounded-full bg-white px-5 py-2 text-sm font-black tracking-wide text-orange-400 lift">YOUR AI WELLNESS ASSISTANT</p>
-        <h1 class="mt-8 text-5xl md:text-7xl font-black leading-[.98] tracking-tight">Wellness routines <br><span class="text-[#32bdb5]">backed by science</span></h1>
-        <p class="mt-8 text-xl font-bold text-gray-500 max-w-xl leading-relaxed">Stop guessing. Ubo turns trusted wellness research into simple, personalized routines you can actually follow.</p>
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a href="#features" class="bg-[#32bdb5] text-white rounded-full px-9 py-4 text-lg font-black tracking-widest lift">GET STARTED</a>
-          <a href="#science" class="bg-white text-[#283034] rounded-full px-9 py-4 text-lg font-black tracking-widest lift">LEARN MORE</a>
+    <section class="relative overflow-hidden">
+      <div class="absolute -top-28 -right-20 w-96 h-96 bg-orange-200/70 rounded-full blur-3xl"></div>
+      <div class="absolute top-60 -left-20 w-80 h-80 bg-[#32bdb5]/20 rounded-full blur-3xl"></div>
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 px-6 md:px-8 py-20 md:py-28 items-center relative">
+        <div>
+          <p class="inline-flex rounded-full bg-white px-5 py-2 text-sm font-black tracking-wide text-orange-400 lift">SOURCE-RESTRICTED WELLNESS AI</p>
+          <h1 class="mt-8 text-5xl md:text-7xl font-black leading-[.96] tracking-tight">
+            Wellness routines <br />
+            <span class="text-[#32bdb5]">backed by science.</span>
+          </h1>
+          <p class="mt-8 text-xl md:text-2xl font-bold text-gray-500 max-w-xl leading-relaxed">
+            Ubo filters credible wellness research and turns it into personalized next steps for your goals, lifestyle, and preferences.
+          </p>
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a href="#pricing" class="bg-[#32bdb5] text-white rounded-full px-9 py-4 text-lg font-black tracking-widest lift-teal">GET STARTED</a>
+            <a href="#science" class="bg-white text-[#273034] rounded-full px-9 py-4 text-lg font-black tracking-widest lift">SEE HOW IT WORKS</a>
+          </div>
+          <div class="mt-10 grid grid-cols-3 gap-4 max-w-xl">
+            <div class="bg-white/80 rounded-3xl p-5 lift"><div class="text-3xl font-black text-orange-400">5</div><div class="text-xs font-black text-gray-400 tracking-widest">EVIDENCE BADGES</div></div>
+            <div class="bg-white/80 rounded-3xl p-5 lift"><div class="text-3xl font-black text-[#32bdb5]">24/7</div><div class="text-xs font-black text-gray-400 tracking-widest">AI GUIDANCE</div></div>
+            <div class="bg-white/80 rounded-3xl p-5 lift"><div class="text-3xl font-black text-orange-400">1</div><div class="text-xs font-black text-gray-400 tracking-widest">CLEAR ROUTINE</div></div>
+          </div>
         </div>
-      </div>
-      <div class="relative min-h-[430px] flex items-center justify-center">
-        <div class="absolute w-80 h-80 bg-orange-200/60 rounded-full blur-3xl"></div>
-        <div class="ubo-shape z-10"><div class="eye left"></div><div class="eye right"></div><div class="smile"></div></div>
-        <div class="absolute top-4 right-24 w-28 h-28 bg-white rounded-3xl lift rotate-3 flex items-center justify-center text-orange-400">
-          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/></svg>
-        </div>
-        <div class="absolute bottom-14 right-8 w-28 h-28 bg-white rounded-3xl lift rotate-3 flex items-center justify-center text-green-500">
-          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+
+        <div class="relative min-h-[520px] flex items-center justify-center">
+          <div class="absolute w-[390px] h-[390px] bg-orange-200/70 rounded-full blur-3xl"></div>
+          <div class="ubo-shape z-10 soft-glow"><div class="eye left"></div><div class="eye right"></div><div class="smile"></div></div>
+          <div class="icon-card absolute top-8 right-20 w-28 h-28 bg-white rounded-3xl lift rotate-3 flex items-center justify-center text-orange-400">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/></svg>
+          </div>
+          <div class="icon-card absolute top-24 left-8 w-28 h-28 bg-white rounded-3xl lift -rotate-6 flex items-center justify-center text-[#32bdb5]">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.3 1.3-1.3 3.4 0 4.7l2.3 2.3c1.3 1.3 1.3 3.4 0 4.7"/><path d="M9 22c1.3-1.3 1.3-3.4 0-4.7L6.7 15c-1.3-1.3-1.3-3.4 0-4.7"/><path d="m8 14 8-8"/><path d="m16 10-8 8"/></svg>
+          </div>
+          <div class="icon-card absolute bottom-24 right-8 w-28 h-28 bg-white rounded-3xl lift -rotate-3 flex items-center justify-center text-green-500">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div class="icon-card absolute bottom-12 left-16 w-28 h-28 bg-white rounded-3xl lift rotate-6 flex items-center justify-center text-purple-500">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="science" class="bg-white py-24 px-6 md:px-8">
       <div class="max-w-7xl mx-auto">
-        <h2 class="text-center text-4xl md:text-5xl font-black leading-tight">The problem isn't lack of information<br><span class="text-orange-400">—it's lack of trustworthy filtering</span></h2>
+        <div class="text-center max-w-4xl mx-auto">
+          <p class="text-sm font-black text-[#32bdb5] tracking-[.25em]">THE FILTERING PROBLEM</p>
+          <h2 class="mt-4 text-4xl md:text-5xl font-black leading-tight">The problem is not lack of information.<br><span class="text-orange-400">It is lack of trustworthy filtering.</span></h2>
+          <p class="mt-6 text-lg font-bold text-gray-500">Social media rewards virality. Search rewards SEO. Generic AI can sound confident even when research is mixed. Ubo is built for safer everyday wellness decisions.</p>
+        </div>
         <div class="grid md:grid-cols-2 gap-10 mt-16">
-          <div class="bg-white rounded-[2rem] p-9 border-2 border-gray-200 lift">
+          <div class="bg-white rounded-[2rem] p-9 border-2 border-gray-200 lift card-hover">
+            <div class="w-16 h-16 rounded-2xl bg-red-100 text-red-500 flex items-center justify-center mb-8 mini-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+            </div>
             <h3 class="text-3xl font-black mb-8">The Wild West</h3>
-            <ul class="space-y-5 text-gray-400 font-bold text-lg"><li>Unvetted social media hacks</li><li>SEO-driven clickbait articles</li><li>Generic AI hallucinations</li><li>One-size-fits-all oversimplification</li></ul>
+            <ul class="space-y-5 text-gray-400 font-bold text-lg"><li class="xmark">Unvetted social media hacks</li><li class="xmark">SEO-driven clickbait articles</li><li class="xmark">Generic AI hallucinations</li><li class="xmark">One-size-fits-all oversimplification</li></ul>
           </div>
-          <div class="bg-[#f8eedc] rounded-[2rem] p-9 border-2 border-[#32bdb5] lift">
+          <div class="bg-[#f8eedc] rounded-[2rem] p-9 border-2 border-[#32bdb5] lift card-hover">
+            <div class="w-16 h-16 rounded-2xl bg-[#32bdb5]/15 text-[#32bdb5] flex items-center justify-center mb-8 mini-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
             <h3 class="text-3xl font-black mb-8">The Ubo Way</h3>
-            <ul class="space-y-5 text-gray-600 font-bold text-lg"><li>Evidence-based filtering</li><li>Personalized for your lifestyle</li><li>Transparent validity badges</li><li>Synthesized peer-reviewed data</li></ul>
+            <ul class="space-y-5 text-gray-600 font-bold text-lg"><li class="check text-[#32bdb5]"><span class="text-gray-600">Evidence-based filtering</span></li><li class="check text-[#32bdb5]"><span class="text-gray-600">Personalized for your lifestyle</span></li><li class="check text-[#32bdb5]"><span class="text-gray-600">Transparent validity badges</span></li><li class="check text-[#32bdb5]"><span class="text-gray-600">Synthesized trusted research</span></li></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="py-24 px-6 md:px-8"><div class="max-w-7xl mx-auto text-center"><h2 class="text-4xl font-black mb-14">How Ubo Works</h2><div class="grid md:grid-cols-5 gap-7">
-      <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5]"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><p class="font-black text-lg">You Ask</p></div>
-      <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5]"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/></svg></div><p class="font-black text-lg">Ubo Researches</p></div>
-      <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5]"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4"/><path d="M21 18a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-5a4 4 0 0 0-4 4"/></svg></div><p class="font-black text-lg">Evidence Summarized</p></div>
-      <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5]"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M9.9 2.1 8.6 7.7 3 9l5.6 1.3 1.3 5.6 1.3-5.6L16.8 9l-5.6-1.3z"/></svg></div><p class="font-black text-lg">Personalized Plan</p></div>
-      <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5]"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><p class="font-black text-lg">Track & Improve</p></div>
-    </div></div></section>
+    <section class="py-24 px-6 md:px-8">
+      <div class="max-w-7xl mx-auto text-center">
+        <p class="text-sm font-black text-orange-400 tracking-[.25em]">PRODUCT FLOW</p>
+        <h2 class="mt-4 text-4xl md:text-5xl font-black mb-14">How Ubo Works</h2>
+        <div class="grid md:grid-cols-5 gap-7">
+          <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5] mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><p class="font-black text-lg">You Ask</p></div>
+          <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5] mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/></svg></div><p class="font-black text-lg">Ubo Researches</p></div>
+          <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5] mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4"/><path d="M21 18a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-5a4 4 0 0 0-4 4"/></svg></div><p class="font-black text-lg">Evidence Summarized</p></div>
+          <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5] mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M9.9 2.1 8.6 7.7 3 9l5.6 1.3 1.3 5.6 1.3-5.6L16.8 9l-5.6-1.3z"/></svg></div><p class="font-black text-lg">Personalized Plan</p></div>
+          <div class="flex flex-col items-center gap-5"><div class="w-20 h-20 bg-white rounded-2xl lift flex items-center justify-center text-[#32bdb5] mini-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><p class="font-black text-lg">Track & Improve</p></div>
+        </div>
+      </div>
+    </section>
 
-    <section id="features" class="bg-white py-24 px-6 md:px-8"><div class="max-w-7xl mx-auto"><h2 class="text-4xl md:text-5xl font-black text-center mb-14">Everything you need for clarity</h2><div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift"><h3 class="font-black text-2xl mb-4 text-orange-400">Faster Clarity</h3><p class="text-gray-500 font-bold leading-relaxed">Get answers in seconds, not hours of searching.</p></div>
-      <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift"><h3 class="font-black text-2xl mb-4 text-orange-400">Trust You Can Verify</h3><p class="text-gray-500 font-bold leading-relaxed">Every claim connects back to evidence users can understand.</p></div>
-      <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift"><h3 class="font-black text-2xl mb-4 text-orange-400">Personalized, Not Generic</h3><p class="text-gray-500 font-bold leading-relaxed">Routines based on your lifestyle, goals, and wellness needs.</p></div>
-      <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift"><h3 class="font-black text-2xl mb-4 text-orange-400">Honest Uncertainty</h3><p class="text-gray-500 font-bold leading-relaxed">Ubo says when science is contested or not fully settled.</p></div>
-      <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift"><h3 class="font-black text-2xl mb-4 text-orange-400">Actionable Routines</h3><p class="text-gray-500 font-bold leading-relaxed">Step-by-step guides users can actually follow.</p></div>
-      <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift"><h3 class="font-black text-2xl mb-4 text-orange-400">Mobile First</h3><p class="text-gray-500 font-bold leading-relaxed">Designed for your lifestyle, wherever you are.</p></div>
-    </div><div class="mt-20 bg-[#f8eedc] border-4 border-orange-100 rounded-[2rem] p-10 text-center"><h3 class="text-3xl font-black mb-8">Our Validity System</h3><div class="flex flex-wrap justify-center gap-5"><span class="bg-green-500 text-white rounded-2xl px-7 py-4 font-black lift">ROCK SOLID</span><span class="bg-[#32bdb5] text-white rounded-2xl px-7 py-4 font-black lift">WELL SUPPORTED</span><span class="bg-yellow-400 text-white rounded-2xl px-7 py-4 font-black lift">PROMISING</span><span class="bg-orange-400 text-white rounded-2xl px-7 py-4 font-black lift">CONTESTED</span><span class="bg-gray-400 text-white rounded-2xl px-7 py-4 font-black lift">NOT SETTLED</span></div></div></div></section>
+    <section id="features" class="bg-white py-24 px-6 md:px-8">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto">
+          <p class="text-sm font-black text-[#32bdb5] tracking-[.25em]">FEATURES</p>
+          <h2 class="mt-4 text-4xl md:text-5xl font-black mb-6">Everything you need for clarity</h2>
+          <p class="text-lg font-bold text-gray-500">Ubo turns complicated information into practical routines instead of overwhelming users with more tabs and opinions.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8 mt-14">
+          <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift card-hover"><h3 class="font-black text-2xl mb-4 text-orange-400">Faster Clarity</h3><p class="text-gray-500 font-bold leading-relaxed">Get answers in seconds, not hours of searching through conflicting wellness advice.</p></div>
+          <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift card-hover"><h3 class="font-black text-2xl mb-4 text-orange-400">Trust You Can Verify</h3><p class="text-gray-500 font-bold leading-relaxed">Every recommendation is tied to transparent evidence and a confidence level.</p></div>
+          <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift card-hover"><h3 class="font-black text-2xl mb-4 text-orange-400">Personalized, Not Generic</h3><p class="text-gray-500 font-bold leading-relaxed">Guidance adapts to your goals, constraints, preferences, and region.</p></div>
+          <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift card-hover"><h3 class="font-black text-2xl mb-4 text-orange-400">Honest Uncertainty</h3><p class="text-gray-500 font-bold leading-relaxed">When experts disagree, Ubo says so and explains what is safest and best supported.</p></div>
+          <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift card-hover"><h3 class="font-black text-2xl mb-4 text-orange-400">Actionable Routines</h3><p class="text-gray-500 font-bold leading-relaxed">Users leave with a checklist or routine they can save, repeat, and improve.</p></div>
+          <div class="bg-white p-9 rounded-[2rem] border-2 border-gray-200 lift card-hover"><h3 class="font-black text-2xl mb-4 text-orange-400">Mobile First</h3><p class="text-gray-500 font-bold leading-relaxed">Designed for Gen Z and young adults who want guidance that fits real life.</p></div>
+        </div>
 
-    <section class="py-24 px-6 md:px-8"><div class="max-w-7xl mx-auto bg-[#32bdb5] text-white rounded-[2.5rem] p-10 md:p-16 grid md:grid-cols-2 gap-10 items-center soft"><div class="ubo-shape mx-auto"><div class="eye left"></div><div class="eye right"></div><div class="smile"></div></div><div><h2 class="text-5xl font-black mb-8">Meet Ubo</h2><p class="text-2xl font-bold leading-relaxed mb-10">Ubo isn't just a chatbot; it's an evidence-based wellness engine that turns trusted research into clear, personalized daily routines.</p><a href="#pricing" class="inline-block bg-white text-[#32bdb5] rounded-full px-10 py-4 text-lg font-black tracking-widest lift">CHAT WITH UBO</a></div></div></section>
+        <div class="mt-20 bg-[#f8eedc] border-4 border-orange-100 rounded-[2rem] p-10 text-center">
+          <h3 class="text-3xl font-black mb-4">Our Validity System</h3>
+          <p class="font-bold text-gray-500 mb-8">Every answer shows how strong the science is.</p>
+          <div class="flex flex-wrap justify-center gap-5"><span class="bg-green-500 text-white rounded-2xl px-7 py-4 font-black lift">ROCK SOLID</span><span class="bg-[#32bdb5] text-white rounded-2xl px-7 py-4 font-black lift">WELL SUPPORTED</span><span class="bg-yellow-400 text-white rounded-2xl px-7 py-4 font-black lift">PROMISING</span><span class="bg-orange-400 text-white rounded-2xl px-7 py-4 font-black lift">CONTESTED</span><span class="bg-gray-400 text-white rounded-2xl px-7 py-4 font-black lift">NOT SETTLED</span></div>
+        </div>
+      </div>
+    </section>
 
-    <section id="pricing" class="bg-white py-24 px-6 md:px-8"><div class="max-w-6xl mx-auto text-center"><h2 class="text-5xl font-black">Choose your path to wellness</h2><p class="mt-4 text-xl font-bold text-gray-500">Simple plans for serious results.</p><div class="grid md:grid-cols-2 gap-10 mt-16"><div class="bg-white rounded-[2rem] border-2 border-gray-200 p-10 lift text-left"><h3 class="text-3xl font-black text-gray-400 text-center">Ubo Free</h3><p class="text-6xl font-black text-center my-6">$0<span class="text-xl text-gray-400">/mo</span></p><ul class="space-y-5 text-gray-600 font-bold text-lg"><li>Basic Chat with Ubo</li><li>Validity Badges</li></ul><a class="block text-center mt-12 bg-[#32bdb5] text-white rounded-full py-4 font-black tracking-widest lift" href="#">GET STARTED</a></div><div class="bg-white rounded-[2rem] border-4 border-orange-400 p-10 lift text-left relative"><div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-orange-400 text-white rounded-full px-8 py-2 font-black text-sm tracking-widest">MOST POPULAR</div><h3 class="text-3xl font-black text-orange-400 text-center">Ubo Pro</h3><p class="text-6xl font-black text-center my-6">$12<span class="text-xl text-gray-400">/mo</span></p><ul class="space-y-5 text-gray-600 font-bold text-lg"><li>Advanced Evidence Synthesis</li><li>Full Bio-Data Integration</li><li>Custom Structured Plans</li><li>Priority Chat Access</li></ul><a class="block text-center mt-12 bg-orange-400 text-white rounded-full py-4 font-black tracking-widest lift" href="#">TRY PRO FREE</a></div></div></div></section>
+    <section id="market" class="py-24 px-6 md:px-8">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-sm font-black text-orange-400 tracking-[.25em]">TARGET MARKET</p>
+          <h2 class="mt-4 text-4xl md:text-5xl font-black leading-tight">Built for the next generation of wellness.</h2>
+          <p class="mt-7 text-xl font-bold text-gray-500 leading-relaxed">Ubo is designed for mobile-first Gen Z and young adults who already search TikTok, YouTube, Google, and forums for wellness answers but want something clearer and more trustworthy.</p>
+          <div class="grid sm:grid-cols-2 gap-6 mt-10">
+            <div class="bg-white rounded-[2rem] p-8 lift"><p class="text-5xl font-black text-orange-400">$6.8T</p><p class="mt-2 text-xs font-black text-gray-400 tracking-widest">GLOBAL WELLNESS ECONOMY</p></div>
+            <div class="bg-white rounded-[2rem] p-8 lift"><p class="text-5xl font-black text-[#32bdb5]">$288B</p><p class="mt-2 text-xs font-black text-gray-400 tracking-widest">DIGITAL HEALTH MARKET</p></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-[2.5rem] p-10 lift">
+          <h3 class="text-3xl font-black mb-8">Top use cases</h3>
+          <div class="space-y-5 font-bold text-gray-600 text-lg">
+            <p class="check text-[#32bdb5]"><span class="text-gray-600">Skincare routines tailored to skin type and goals</span></p>
+            <p class="check text-[#32bdb5]"><span class="text-gray-600">Nutrition basics for energy and better habits</span></p>
+            <p class="check text-[#32bdb5]"><span class="text-gray-600">Beginner fitness plans that are safe and realistic</span></p>
+            <p class="check text-[#32bdb5]"><span class="text-gray-600">Sleep, hygiene, and daily routines that build consistency</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-24 px-6 md:px-8 bg-[#32bdb5] text-white">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        <div class="ubo-shape mx-auto scale-90"><div class="eye left"></div><div class="eye right"></div><div class="smile"></div></div>
+        <div>
+          <p class="text-sm font-black tracking-[.25em] text-white/80">MEET UBO</p>
+          <h2 class="mt-4 text-5xl md:text-6xl font-black mb-8">A warmer way to make better wellness decisions.</h2>
+          <p class="text-2xl font-bold leading-relaxed mb-10 text-white/90">Ubo is not just another chatbot. It is an evidence-based wellness engine that helps users understand what is supported, what is uncertain, and what next step actually fits their life.</p>
+          <a href="#pricing" class="inline-block bg-white text-[#32bdb5] rounded-full px-10 py-4 text-lg font-black tracking-widest lift">CHAT WITH UBO</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="bg-white py-24 px-6 md:px-8">
+      <div class="max-w-6xl mx-auto text-center">
+        <p class="text-sm font-black text-orange-400 tracking-[.25em]">PRICING</p>
+        <h2 class="mt-4 text-5xl font-black">Choose your path to wellness</h2>
+        <p class="mt-4 text-xl font-bold text-gray-500">A simple freemium model built for students and everyday users.</p>
+        <div class="grid md:grid-cols-2 gap-10 mt-16">
+          <div class="bg-white rounded-[2rem] border-2 border-gray-200 p-10 lift text-left">
+            <h3 class="text-3xl font-black text-gray-400 text-center">Ubo Free</h3>
+            <p class="text-6xl font-black text-center my-6">$0<span class="text-xl text-gray-400">/mo</span></p>
+            <ul class="space-y-5 text-gray-600 font-bold text-lg"><li class="check text-[#32bdb5]"><span class="text-gray-600">Basic wellness chat</span></li><li class="check text-[#32bdb5]"><span class="text-gray-600">Validity badges on every answer</span></li><li class="check text-[#32bdb5]"><span class="text-gray-600">Limited saved routines</span></li></ul>
+            <a class="block text-center mt-12 bg-[#32bdb5] text-white rounded-full py-4 font-black tracking-widest lift-teal" href="#">GET STARTED</a>
+          </div>
+          <div class="bg-white rounded-[2rem] border-4 border-orange-400 p-10 lift-orange text-left relative">
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-orange-400 text-white rounded-full px-8 py-2 font-black text-sm tracking-widest">MOST POPULAR</div>
+            <h3 class="text-3xl font-black text-orange-400 text-center">Ubo Pro</h3>
+            <p class="text-6xl font-black text-center my-6">$9.99<span class="text-xl text-gray-400">/mo</span></p>
+            <ul class="space-y-5 text-gray-600 font-bold text-lg"><li class="check text-orange-400"><span class="text-gray-600">Deeper personalization</span></li><li class="check text-orange-400"><span class="text-gray-600">Structured plans and reminders</span></li><li class="check text-orange-400"><span class="text-gray-600">Saved programs and progress insights</span></li><li class="check text-orange-400"><span class="text-gray-600">Compare sources for contested topics</span></li></ul>
+            <a class="block text-center mt-12 bg-orange-400 text-white rounded-full py-4 font-black tracking-widest lift-orange" href="#">TRY PRO FREE</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="py-10 text-center text-gray-500 font-bold"><p>Ubo — Uplift, Balance, Optimize</p></footer>
+  <footer class="py-10 text-center text-gray-500 font-bold bg-white border-t border-gray-100">
+    <p>Ubo — Uplift, Balance, Optimize</p>
+  </footer>
 </body>
 </html>
